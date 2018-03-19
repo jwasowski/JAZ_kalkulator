@@ -12,14 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	// G³ówna klasa servletu przetwarzajaca formularz (przetworzy metode post i
+	// get)
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		String kwotaKredytu = request.getParameter("kwotakredytu");
 		String iloscRat = request.getParameter("iloscrat");
 		String oprocentowanie = request.getParameter("oprocentowanie");
 		String oplataStala = request.getParameter("oplatastala");
 		String rodzajRat = request.getParameter("rodzajrat");
 		String[][] tabela;
-
+		// Sprawdzenie czy pola formularza nie sa puste
 		if (kwotaKredytu == null || kwotaKredytu.equals("") || iloscRat == null || iloscRat.equals("")
 				|| oprocentowanie == null || oprocentowanie.equals("") || oplataStala == null
 				|| oplataStala.equals("")) {
@@ -28,26 +31,37 @@ public class MainServlet extends HttpServlet {
 		response.setContentType("text/html");
 
 		if (rodzajRat.equals("stala")) {
-			tabela = Kalkulator.stalaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala);
+			tabela = Kalkulator.stalaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+																								// raty
 			response.getWriter().print(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat));
+					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+																													// String'a
+																													// zawierajacego
+																													// kod
+																													// html
 
 		} else {
-			tabela = Kalkulator.malejacaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala);
+			tabela = Kalkulator.malejacaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+																									// raty
 			response.getWriter().print(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat));
+					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+																													// String'a
+																													// zawierajacego
+																													// kod
+																													// html
 
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		String kwotaKredytu = request.getParameter("kwotakredytu");
 		String iloscRat = request.getParameter("iloscrat");
 		String oprocentowanie = request.getParameter("oprocentowanie");
 		String oplataStala = request.getParameter("oplatastala");
 		String rodzajRat = request.getParameter("rodzajrat");
 		String[][] tabela;
-
+		// Sprawdzenie czy pola formularza nie sa puste
 		if (kwotaKredytu == null || kwotaKredytu.equals("") || iloscRat == null || iloscRat.equals("")
 				|| oprocentowanie == null || oprocentowanie.equals("") || oplataStala == null
 				|| oplataStala.equals("")) {
@@ -57,14 +71,24 @@ public class MainServlet extends HttpServlet {
 		response.setContentType("text/html");
 
 		if (rodzajRat.equals("stala")) {
-			tabela = Kalkulator.stalaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala);
+			tabela = Kalkulator.stalaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+																								// raty
 			response.getWriter().print(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat));
+					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+																													// String'a
+																													// zawierajacego
+																													// kod
+																													// html
 
 		} else {
-			tabela = Kalkulator.malejacaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala);
+			tabela = Kalkulator.malejacaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+																									// raty
 			response.getWriter().print(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat));
+					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+																													// String'a
+																													// zawierajacego
+																													// kod
+																													// html
 
 		}
 	}

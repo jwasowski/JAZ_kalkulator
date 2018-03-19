@@ -1,7 +1,8 @@
 package servlets;
 
 public class Kalkulator {
-
+	// Metoda tworzenia szeregów danych dla raty stalej (oblicza poszczegolne
+	// wyniki i tworzy odpowiednia strukture tabeli)
 	public static String[][] stalaRata(String kwotaKredytu, String iloscRat, String oprocentowanie,
 			String oplataStala) {
 		double kwotaKredytuKonw = Double.parseDouble(kwotaKredytu);
@@ -47,6 +48,8 @@ public class Kalkulator {
 		return tabela;
 	}
 
+	// Metoda tworzenia szeregów danych dla raty malejacej (oblicza poszczegolne
+	// wyniki i tworzy odpowiednia strukture tabeli)
 	public static String[][] malejacaRata(String kwotaKredytu, String iloscRat, String oprocentowanie,
 			String oplataStala) {
 		double kwotaKredytuKonw = Double.parseDouble(kwotaKredytu);
@@ -89,15 +92,16 @@ public class Kalkulator {
 		return tabela;
 	}
 
+	// Metoda przetwarzajaca tabele jako kod HTML
 	public static String drukTabeli(String[][] tabela, String kwotaKredytu, String iloscRat, String oprocentowanie,
-			String oplataStala, String rodzajRat) { 
+			String oplataStala, String rodzajRat) {
 		String zwrot = "";
 		int wys = tabela.length, i, szer = 0, j;
 		zwrot = zwrot
 				.concat("<html><head><style>table, th, td {border: 1px solid black;}</style></head><body>Kwota kredytu: "
-						+ kwotaKredytu + " zl<br>Ilosc rat: " + iloscRat + "</br>Oprocentowanie: " 
-						+ oprocentowanie + "%<br>Oplata stala: " + oplataStala + " zl</br> Rodzaj rat: " 
-						+ rodzajRat	+ "<table><tr><th>Nr Raty</th><th>Kwota Kapitalowa</th><th>Kwota Odsetki</th><th>Oplaty Stale</th><th>Calkowita Rata</th></tr>");
+						+ kwotaKredytu + " zl<br>Ilosc rat: " + iloscRat + "</br>Oprocentowanie: " + oprocentowanie
+						+ "%<br>Oplata stala: " + oplataStala + " zl</br> Rodzaj rat: " + rodzajRat
+						+ "<table><tr><th>Nr Raty</th><th>Kwota Kapitalowa</th><th>Kwota Odsetki</th><th>Oplaty Stale</th><th>Calkowita Rata</th></tr>");
 		for (i = 0; i < wys; i++) {
 			szer = tabela[i].length;
 			zwrot = zwrot.concat("<tr>");

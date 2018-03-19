@@ -19,8 +19,11 @@ import com.itextpdf.tool.xml.XMLWorkerHelper;
 public class Pdf extends MainServlet {
 	private static final long serialVersionUID = 1L;
 
+	// Klasa przetwarzajaca servletu dla tworzenia pdf'u (przetwarza metode post
+	// i get)
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		String kwotaKredytu = request.getParameter("kwotakredytu");
 		String iloscRat = request.getParameter("iloscrat");
 		String oprocentowanie = request.getParameter("oprocentowanie");
@@ -28,7 +31,7 @@ public class Pdf extends MainServlet {
 		String rodzajRat = request.getParameter("rodzajrat");
 		String[][] tabela;
 		String tabelaXML = "";
-
+		// Sprawdzenie czy pola formularza nie sa puste
 		if (kwotaKredytu == null || kwotaKredytu.equals("") || iloscRat == null || iloscRat.equals("")
 				|| oprocentowanie == null || oprocentowanie.equals("") || oplataStala == null
 				|| oplataStala.equals("")) {
@@ -38,22 +41,33 @@ public class Pdf extends MainServlet {
 		response.setContentType("text/html");
 
 		if (rodzajRat.equals("stala")) {
-			tabela = Kalkulator.stalaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala);
+			tabela = Kalkulator.stalaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+																								// raty
 			tabelaXML = tabelaXML.concat(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat));
-			budujPDF(request, response, tabelaXML);
+					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+																													// String'a
+																													// zawierajacego
+																													// kod
+																													// html
+			budujPDF(request, response, tabelaXML); // Tworzenie dokumentu PDF
 
 		} else {
-			tabela = Kalkulator.malejacaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala);
+			tabela = Kalkulator.malejacaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+																									// raty
 			tabelaXML = tabelaXML.concat(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat));
-			budujPDF(request, response, tabelaXML);
+					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+																													// String'a
+																													// zawierajacego
+																													// kod
+																													// html
+			budujPDF(request, response, tabelaXML); // Tworzenie dokumentu PDF
 		}
 
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
 		String kwotaKredytu = request.getParameter("kwotakredytu");
 		String iloscRat = request.getParameter("iloscrat");
@@ -62,7 +76,7 @@ public class Pdf extends MainServlet {
 		String rodzajRat = request.getParameter("rodzajrat");
 		String[][] tabela;
 		String tabelaXML = "";
-
+		// Sprawdzenie czy pola formularza nie sa puste
 		if (kwotaKredytu == null || kwotaKredytu.equals("") || iloscRat == null || iloscRat.equals("")
 				|| oprocentowanie == null || oprocentowanie.equals("") || oplataStala == null
 				|| oplataStala.equals("")) {
@@ -72,23 +86,36 @@ public class Pdf extends MainServlet {
 		response.setContentType("text/html");
 
 		if (rodzajRat.equals("stala")) {
-			tabela = Kalkulator.stalaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala);
+			tabela = Kalkulator.stalaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+																								// raty
 			tabelaXML = tabelaXML.concat(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat));
-			budujPDF(request, response, tabelaXML);
+					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+																													// String'a
+																													// zawierajacego
+																													// kod
+																													// html
+			budujPDF(request, response, tabelaXML); // Tworzenie dokumentu PDF
 
 		} else {
-			tabela = Kalkulator.malejacaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala);
+			tabela = Kalkulator.malejacaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+																									// raty
 			tabelaXML = tabelaXML.concat(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat));
-			budujPDF(request, response, tabelaXML);
+					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+																													// String'a
+																													// zawierajacego
+																													// kod
+																													// html
+			budujPDF(request, response, tabelaXML); // Tworzenie dokumentu PDF
 		}
 
 	}
 
+	// Metoda tworzaca dokument PDF
 	protected void budujPDF(HttpServletRequest request, HttpServletResponse response, String tabelaXML)
 			throws ServletException, IOException {
-
+		// Dokument tworzymy i transmitujemy jako odpowiedz servletu, do
+		// przetworzenia korzystamy z XMLworkerhelpera (przetwarza kod html/xml
+		// dla pdf)
 		response.setContentType("application/pdf");
 		OutputStream wyjscie = response.getOutputStream();
 		try {
