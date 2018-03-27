@@ -15,6 +15,8 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
+import domain.DaneWprowadzone;
+
 @WebServlet("/pdf")
 public class Pdf extends MainServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,20 +33,21 @@ public class Pdf extends MainServlet {
 		String rodzajRat = request.getParameter("rodzajrat");
 		String[][] tabela;
 		String tabelaXML = "";
+		DaneWprowadzone dane = new DaneWprowadzone();
 		// Sprawdzenie czy pola formularza nie sa puste
 		if (kwotaKredytu == null || kwotaKredytu.equals("") || iloscRat == null || iloscRat.equals("")
 				|| oprocentowanie == null || oprocentowanie.equals("") || oplataStala == null
 				|| oplataStala.equals("")) {
 			response.sendRedirect("/");
 		}
-
+		dane = Kalkulator.ParsowanieDanych(kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat);
 		response.setContentType("text/html");
 
 		if (rodzajRat.equals("stala")) {
-			tabela = Kalkulator.stalaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+			tabela = Kalkulator.stalaRata(dane); // Obliczenie
 																								// raty
 			tabelaXML = tabelaXML.concat(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+					Kalkulator.drukTabeli(tabela, dane)); // Tworzenie
 																													// String'a
 																													// zawierajacego
 																													// kod
@@ -52,10 +55,10 @@ public class Pdf extends MainServlet {
 			budujPDF(request, response, tabelaXML); // Tworzenie dokumentu PDF
 
 		} else {
-			tabela = Kalkulator.malejacaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+			tabela = Kalkulator.malejacaRata(dane); // Obliczenie
 																									// raty
 			tabelaXML = tabelaXML.concat(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+					Kalkulator.drukTabeli(tabela,dane)); // Tworzenie
 																													// String'a
 																													// zawierajacego
 																													// kod
@@ -76,20 +79,21 @@ public class Pdf extends MainServlet {
 		String rodzajRat = request.getParameter("rodzajrat");
 		String[][] tabela;
 		String tabelaXML = "";
+		DaneWprowadzone dane = new DaneWprowadzone();
 		// Sprawdzenie czy pola formularza nie sa puste
 		if (kwotaKredytu == null || kwotaKredytu.equals("") || iloscRat == null || iloscRat.equals("")
 				|| oprocentowanie == null || oprocentowanie.equals("") || oplataStala == null
 				|| oplataStala.equals("")) {
 			response.sendRedirect("/");
 		}
-
+		dane = Kalkulator.ParsowanieDanych(kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat);
 		response.setContentType("text/html");
 
 		if (rodzajRat.equals("stala")) {
-			tabela = Kalkulator.stalaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+			tabela = Kalkulator.stalaRata(dane); // Obliczenie
 																								// raty
 			tabelaXML = tabelaXML.concat(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+					Kalkulator.drukTabeli(tabela, dane)); // Tworzenie
 																													// String'a
 																													// zawierajacego
 																													// kod
@@ -97,10 +101,10 @@ public class Pdf extends MainServlet {
 			budujPDF(request, response, tabelaXML); // Tworzenie dokumentu PDF
 
 		} else {
-			tabela = Kalkulator.malejacaRata(kwotaKredytu, iloscRat, oprocentowanie, oplataStala); // Obliczenie
+			tabela = Kalkulator.malejacaRata(dane); // Obliczenie
 																									// raty
 			tabelaXML = tabelaXML.concat(
-					Kalkulator.drukTabeli(tabela, kwotaKredytu, iloscRat, oprocentowanie, oplataStala, rodzajRat)); // Tworzenie
+					Kalkulator.drukTabeli(tabela, dane)); // Tworzenie
 																													// String'a
 																													// zawierajacego
 																													// kod
