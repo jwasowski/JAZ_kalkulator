@@ -46,5 +46,6 @@ public class DaneWprowadzone {
 	public void setRodzajRat(String rodzajRat) {
 		this.rodzajRat = rodzajRat;
 	}
+	 
 
 }
